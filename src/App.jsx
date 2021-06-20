@@ -1,6 +1,7 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Switch, Route, Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import Post from "./Post";
 import User from "./User";
 
@@ -8,6 +9,12 @@ export const endpoint = "https://hasura-exercise.hasura.app/v1/graphql";
 const queryClient = new QueryClient();
 
 export default function App() {
+  const { loginWithRedirect, isLoading, isAuthenticated } = useAuth0();
+
+  React.useEffect(() => {
+    if (!isLoading && !isAuthenticated) loginWithRedirect();
+  }, [isLoading, isAuthenticated]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <h1>Welcome</h1>
