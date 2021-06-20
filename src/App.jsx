@@ -9,7 +9,7 @@ export const endpoint = "https://hasura-exercise.hasura.app/v1/graphql";
 const queryClient = new QueryClient();
 
 export default function App() {
-  const { loginWithRedirect, isLoading, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, isLoading, isAuthenticated, logout } = useAuth0();
 
   React.useEffect(() => {
     if (!isLoading && !isAuthenticated) loginWithRedirect();
@@ -18,6 +18,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <h1>Welcome</h1>
+      <button onClick={logout}>Logout</button>
       <div>
         <Link to="/post">Post</Link>
         &nbsp;
