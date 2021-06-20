@@ -6,6 +6,7 @@ const commonConfig = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "build"),
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -36,6 +37,7 @@ const developmentConfig = merge(commonConfig, {
   devServer: {
     contentBase: path.resolve(__dirname, "build"),
     open: true,
+    historyApiFallback: true,
   },
 });
 
