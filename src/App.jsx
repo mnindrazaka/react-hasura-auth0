@@ -2,10 +2,17 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Switch, Route, Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { GraphQLClient } from "graphql-request";
 import Post from "./Post";
 import User from "./User";
 
-export const endpoint = "https://hasura-exercise.hasura.app/v1/graphql";
+const endpoint = "https://hasura-exercise.hasura.app/v1/graphql";
+export const graphQLClient = new GraphQLClient(endpoint, {
+  headers: {
+    "x-hasura-admin-secret": "12345",
+  },
+});
+
 const queryClient = new QueryClient();
 
 export default function App() {

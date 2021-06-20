@@ -1,26 +1,24 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { gql, request } from "graphql-request";
-import { endpoint } from "./App";
+import { gql } from "graphql-request";
+import { graphQLClient } from "./App";
 
 function usePosts() {
-  return useQuery("posts", async () => {
-    const { posts } = await request(
-      endpoint,
-      gql`
-        query {
-          posts {
-            id
-            title
-            user {
-              id
-              name
-              email
-            }
-          }
+  const query = gql`
+    query {
+      posts {
+        id
+        title
+        user {
+          id
+          name
+          email
         }
-      `
-    );
+      }
+    }
+  `;
+  return useQuery("posts", async () => {
+    const { posts } = await graphQLClient.request(query);
     return posts;
   });
 }
